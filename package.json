@@ -1,0 +1,22 @@
+{
+	"name": "rados",
+	"version": "0.2.8",
+	"description" : "Ceph rados client for node.js",
+	"author" : "Laurent Barbe <laurent@ksperis.com>",
+ 	"repository" : {
+		"type" : "git",
+		"url" : "git://github.com/ksperis/node-rados.git"
+	},
+	"dependencies" : {
+		"bindings": "*",
+		"nan": "*",
+		"node-gyp": ">0.10.0"
+	},
+	"devDependencies" : {
+		"nodeunit": "*"
+	},
+	"scripts": {
+        "install": "node-gyp rebuild",
+        "test": "node_modules/.bin/nodeunit test/*"
+    }
+}
