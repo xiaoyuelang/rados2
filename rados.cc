@@ -44,6 +44,8 @@ void Ioctx::Init(Handle<Object> target) {
   Local<FunctionTemplate> tpl = NanNew<FunctionTemplate>(New);
   tpl->SetClassName(NanNew<String>("Ioctx"));
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
+  tpl->PrototypeTemplate()->Set(NanNew<String>("pool_stat"),
+       NanNew<FunctionTemplate>(pool_stat)->GetFunction());
   tpl->PrototypeTemplate()->Set(NanNew<String>("pool_set_auid"),
       NanNew<FunctionTemplate>(pool_set_auid)->GetFunction());
   tpl->PrototypeTemplate()->Set(NanNew<String>("pool_get_auid"),
