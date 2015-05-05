@@ -325,6 +325,8 @@ NAN_METHOD(Rados::pool_list) {
 
 NAN_METHOD(Ioctx::pool_stat) {
   NanScope();
+  Ioctx* obj = ObjectWrap::Unwrap<Ioctx>(args.This());
+  if ( !obj->require_created() ) NanReturnNull();
   rados_pool_stat_t pool_stat_t;
   int err = rados_ioctx_pool_stat(obj->ioctx, &pool_stat_t);
   if (err < 0) {
