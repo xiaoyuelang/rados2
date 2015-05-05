@@ -13,3 +13,7 @@ console.error(ioctx);
 var stat = ioctx.pool_stat();
 
 console.error(stat);
+
+var objects = ioctx.objects_range(0, 3);
+
+console.error(objects);
