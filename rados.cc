@@ -96,7 +96,8 @@ void Ioctx::Init(Handle<Object> target) {
       NanNew<FunctionTemplate>(aio_flush_async)->GetFunction());
   tpl->PrototypeTemplate()->Set(NanNew<String>("objects_list"),
       NanNew<FunctionTemplate>(objects_list)->GetFunction());
-
+  tpl->PrototypeTemplate()->Set(NanNew<String>("objects_range"),
+        NanNew<FunctionTemplate>(objects_range)->GetFunction());
   NanAssignPersistent(constructor, tpl);
   target->Set(NanNew<String>("Ioctx"),
       NanNew<FunctionTemplate>(constructor)->GetFunction());
@@ -1045,6 +1046,56 @@ NAN_METHOD(Ioctx::objects_list) {
   //Get the next object name and locator in the pool.
 
   while(0 <= err) {
+    const char *obj_name;
+    err = rados_objects_list_next(h_ctx, &obj_name, NULL);
+    if (err == 0) {
+      ret_list->Set(array_id, NanNew(obj_name));
+      array_id++;
+    }
+  }
+  rados_objects_list_close(h_ctx);
+
+  if (err < 0 && err != -ENOENT) {
+    return NanThrowError("list_next failed.");
+  }
+
+  NanReturnValue(ret_list);
+}
+
+NAN_METHOD(Ioctx::objects_range) {
+  NanScope();
+
+  if (args.Length() < 2 ||
+        !args[0]->IsNumber() ||
+		!args[1]->IsNumber()
+       ) {
+      return NanThrowError("Bad argument.");
+    }
+
+    Ioctx* obj = ObjectWrap::Unwrap<Ioctx>(args.This());
+    if ( !obj->require_created() ) NanReturnNull();
+    uint32_t offset = args[0]->IsNumber() ? args[0]->IntegerValue() : 0;
+    uint32_t limit = args[1]->IsNumber() ? args[1]->IntegerValue() : 25;
+
+
+  Ioctx* obj = ObjectWrap::Unwrap<Ioctx>(args.This());
+  if ( !obj->require_created() ) NanReturnNull();
+
+  rados_list_ctx_t h_ctx;
+
+  int err = rados_objects_list_open(obj->ioctx, &h_ctx);
+  if (err < 0) {
+    return NanThrowError("open list failed.");
+  }
+
+  err = rados_nobjects_list_seek(h_ctx, begin);
+  if (err < 0) {
+      return NanThrowError("seek list failed.");
+  }
+  Local<Array> ret_list = NanNew<Array>();
+  uint32_t array_id = 0;
+
+  while(0 <= err && array_id < limit) {
     const char *obj_name;
     err = rados_objects_list_next(h_ctx, &obj_name, NULL);
     if (err == 0) {
