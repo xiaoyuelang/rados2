@@ -1085,7 +1085,7 @@ NAN_METHOD(Ioctx::objects_range) {
     return NanThrowError("open list failed.");
   }
 
-  err = rados_nobjects_list_seek(h_ctx, offset);
+  err = rados_objects_list_seek(h_ctx, offset);
   if (err < 0) {
       return NanThrowError("seek list failed.");
   }
