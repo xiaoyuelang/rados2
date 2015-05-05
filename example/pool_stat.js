@@ -9,7 +9,7 @@ if (err) {
 }
 
 var ioctx = new rados.Ioctx(cluster, "app_wxb");
-
+console.error(ioctx);
 var stat = ioctx.pool_stat();
 
 console.error(stat);
