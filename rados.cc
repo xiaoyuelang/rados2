@@ -1072,11 +1072,8 @@ NAN_METHOD(Ioctx::objects_range) {
       return NanThrowError("Bad argument.");
     }
 
-    Ioctx* obj = ObjectWrap::Unwrap<Ioctx>(args.This());
-    if ( !obj->require_created() ) NanReturnNull();
-    uint32_t offset = args[0]->IsNumber() ? args[0]->IntegerValue() : 0;
-    uint32_t limit = args[1]->IsNumber() ? args[1]->IntegerValue() : 25;
-
+  uint32_t offset = args[0]->IsNumber() ? args[0]->IntegerValue() : 0;
+  uint32_t limit = args[1]->IsNumber() ? args[1]->IntegerValue() : 25;
 
   Ioctx* obj = ObjectWrap::Unwrap<Ioctx>(args.This());
   if ( !obj->require_created() ) NanReturnNull();
