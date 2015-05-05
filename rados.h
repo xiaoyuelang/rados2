@@ -65,6 +65,7 @@ class Ioctx : public node::ObjectWrap {
   static void callback_complete(uv_work_t *req);
   static void wait_complete(uv_work_t *req);
 
+  static NAN_METHOD(pool_stat);
   static NAN_METHOD(pool_set_auid);
   static NAN_METHOD(pool_get_auid);
   static NAN_METHOD(destroy);

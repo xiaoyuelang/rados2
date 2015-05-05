@@ -323,6 +323,21 @@ NAN_METHOD(Rados::pool_list) {
   NanReturnValue(pools);
 }
 
+NAN_METHOD(Ioctx::pool_stat) {
+  NanScope();
+  rados_pool_stat_t pool_stat_t;
+  int err = rados_ioctx_pool_stat(obj->ioctx, &pool_stat_t);
+  if (err < 0) {
+    NanReturnNull();
+  }
+
+  Local<Object> stat = NanNew<Object>();
+  stat->Set( NanNew<String>("num_bytes"), NanNew<Number>(pool_stat_t.num_bytes));
+  stat->Set( NanNew<String>("num_objects"), NanNew<Number>(pool_stat_t.num_objects) );
+
+  NanReturnValue(stat);
+}
+
 
 NAN_METHOD(Ioctx::pool_set_auid) {
   NanScope();
