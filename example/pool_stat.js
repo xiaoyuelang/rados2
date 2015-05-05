@@ -1,4 +1,4 @@
-var rados = require('./build/Release/rados');
+var rados = require('../build/Release/rados');
 
 var cluster = new rados.Rados( "ceph", "client.app", "/etc/ceph/ceph.conf");
 
