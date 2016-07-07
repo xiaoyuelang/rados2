@@ -19,7 +19,7 @@ Ioctx::~Ioctx() {};
 
 void Rados::Init(Handle<Object> target) {
   Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
-  tpl->SetClassName(Nan::New<v8::String>("Rados"));
+  tpl->SetClassName(Nan::New<v8::String>("Rados").ToLocalChecked());
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
   tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("connect"),
       Nan::New<FunctionTemplate>(connect)->GetFunction());
