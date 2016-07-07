@@ -34,7 +34,7 @@ void Rados::Init(Handle<Object> target) {
   tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_list").ToLocalChecked(),
       Nan::New<FunctionTemplate>(pool_list)->GetFunction());
 
-  NanAssignPersistent(constructor, tpl);
+  Nan::Persistent(constructor, tpl);
   target->Set(Nan::New<v8::String>("Rados").ToLocalChecked(),
       Nan::New<FunctionTemplate>(constructor)->GetFunction());
 }
@@ -98,7 +98,7 @@ void Ioctx::Init(Handle<Object> target) {
       Nan::New<FunctionTemplate>(objects_list)->GetFunction());
   tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("objects_range").ToLocalChecked(),
         Nan::New<FunctionTemplate>(objects_range)->GetFunction());
-  NanAssignPersistent(constructor, tpl);
+  Nan::Persistent(constructor, tpl);
   target->Set(Nan::New<v8::String>("Ioctx").ToLocalChecked(),
       Nan::New<FunctionTemplate>(constructor)->GetFunction());
 }
