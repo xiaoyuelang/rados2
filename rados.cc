@@ -36,7 +36,7 @@ void Rados::Init(Handle<Object> target) {
 
   Persistent<FunctionTemplate> persistent(constructor);
   Nan::New(persistent);
-  persistent.Reset(tpl);
+  persistent.Reset(tpl.ToLocalChecked());
   persistent.Reset();
 
   target->Set(Nan::New<v8::String>("Rados").ToLocalChecked(),
