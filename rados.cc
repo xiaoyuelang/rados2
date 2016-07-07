@@ -22,7 +22,7 @@ void Rados::Init(Handle<Object> target) {
   tpl->SetClassName(Nan::New<v8::String>("Rados").ToLocalChecked());
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
   tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("connect"),
-      Nan::New<FunctionTemplate>(connect)->GetFunction());
+      Nan::New<FunctionTemplate>(connect)->GetFunction().ToLocalChecked());
   tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("shutdown"),
       Nan::New<FunctionTemplate>(shutdown)->GetFunction());
   tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("get_fsid"),
