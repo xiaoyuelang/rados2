@@ -18,89 +18,89 @@ Ioctx::~Ioctx() {};
 
 
 void Rados::Init(Handle<Object> target) {
-  Local<FunctionTemplate> tpl = NanNew<FunctionTemplate>(New);
-  tpl->SetClassName(NanNew<String>("Rados"));
+  Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
+  tpl->SetClassName(Nan::New<String>("Rados"));
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
-  tpl->PrototypeTemplate()->Set(NanNew<String>("connect"),
-      NanNew<FunctionTemplate>(connect)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("shutdown"),
-      NanNew<FunctionTemplate>(shutdown)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("get_fsid"),
-      NanNew<FunctionTemplate>(get_fsid)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("pool_create"),
-      NanNew<FunctionTemplate>(pool_create)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("pool_delete"),
-      NanNew<FunctionTemplate>(pool_delete)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("pool_list"),
-      NanNew<FunctionTemplate>(pool_list)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("connect"),
+      Nan::New<FunctionTemplate>(connect)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("shutdown"),
+      Nan::New<FunctionTemplate>(shutdown)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("get_fsid"),
+      Nan::New<FunctionTemplate>(get_fsid)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("pool_create"),
+      Nan::New<FunctionTemplate>(pool_create)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("pool_delete"),
+      Nan::New<FunctionTemplate>(pool_delete)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("pool_list"),
+      Nan::New<FunctionTemplate>(pool_list)->GetFunction());
 
   NanAssignPersistent(constructor, tpl);
-  target->Set(NanNew<String>("Rados"),
-      NanNew<FunctionTemplate>(constructor)->GetFunction());
+  target->Set(Nan::New<String>("Rados"),
+      Nan::New<FunctionTemplate>(constructor)->GetFunction());
 }
 
 
 void Ioctx::Init(Handle<Object> target) {
-  Local<FunctionTemplate> tpl = NanNew<FunctionTemplate>(New);
-  tpl->SetClassName(NanNew<String>("Ioctx"));
+  Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
+  tpl->SetClassName(Nan::New<String>("Ioctx"));
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
-  tpl->PrototypeTemplate()->Set(NanNew<String>("pool_stat"),
-       NanNew<FunctionTemplate>(pool_stat)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("pool_set_auid"),
-      NanNew<FunctionTemplate>(pool_set_auid)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("pool_get_auid"),
-      NanNew<FunctionTemplate>(pool_get_auid)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("destroy"),
-      NanNew<FunctionTemplate>(destroy)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("snap_create"),
-      NanNew<FunctionTemplate>(snap_create)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("snap_remove"),
-      NanNew<FunctionTemplate>(snap_remove)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("snap_rollback"),
-      NanNew<FunctionTemplate>(snap_rollback)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("read"),
-      NanNew<FunctionTemplate>(read)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("write"),
-      NanNew<FunctionTemplate>(write)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("write_full"),
-      NanNew<FunctionTemplate>(write_full)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("clone_range"),
-      NanNew<FunctionTemplate>(clone_range)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("append"),
-      NanNew<FunctionTemplate>(append)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("remove"),
-      NanNew<FunctionTemplate>(remove)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("trunc"),
-      NanNew<FunctionTemplate>(trunc)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("stat"),
-      NanNew<FunctionTemplate>(stat)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("getxattr"),
-      NanNew<FunctionTemplate>(getxattr)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("setxattr"),
-      NanNew<FunctionTemplate>(setxattr)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("rmxattr"),
-      NanNew<FunctionTemplate>(rmxattr)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("getxattrs"),
-      NanNew<FunctionTemplate>(getxattrs)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("aio_read"),
-      NanNew<FunctionTemplate>(aio_read)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("aio_write"),
-      NanNew<FunctionTemplate>(aio_write)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("aio_append"),
-      NanNew<FunctionTemplate>(aio_append)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("aio_write_full"),
-      NanNew<FunctionTemplate>(aio_write_full)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("aio_flush"),
-      NanNew<FunctionTemplate>(aio_flush)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("aio_flush_async"),
-      NanNew<FunctionTemplate>(aio_flush_async)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("objects_list"),
-      NanNew<FunctionTemplate>(objects_list)->GetFunction());
-  tpl->PrototypeTemplate()->Set(NanNew<String>("objects_range"),
-        NanNew<FunctionTemplate>(objects_range)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("pool_stat"),
+       Nan::New<FunctionTemplate>(pool_stat)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("pool_set_auid"),
+      Nan::New<FunctionTemplate>(pool_set_auid)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("pool_get_auid"),
+      Nan::New<FunctionTemplate>(pool_get_auid)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("destroy"),
+      Nan::New<FunctionTemplate>(destroy)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("snap_create"),
+      Nan::New<FunctionTemplate>(snap_create)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("snap_remove"),
+      Nan::New<FunctionTemplate>(snap_remove)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("snap_rollback"),
+      Nan::New<FunctionTemplate>(snap_rollback)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("read"),
+      Nan::New<FunctionTemplate>(read)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("write"),
+      Nan::New<FunctionTemplate>(write)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("write_full"),
+      Nan::New<FunctionTemplate>(write_full)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("clone_range"),
+      Nan::New<FunctionTemplate>(clone_range)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("append"),
+      Nan::New<FunctionTemplate>(append)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("remove"),
+      Nan::New<FunctionTemplate>(remove)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("trunc"),
+      Nan::New<FunctionTemplate>(trunc)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("stat"),
+      Nan::New<FunctionTemplate>(stat)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("getxattr"),
+      Nan::New<FunctionTemplate>(getxattr)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("setxattr"),
+      Nan::New<FunctionTemplate>(setxattr)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("rmxattr"),
+      Nan::New<FunctionTemplate>(rmxattr)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("getxattrs"),
+      Nan::New<FunctionTemplate>(getxattrs)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("aio_read"),
+      Nan::New<FunctionTemplate>(aio_read)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("aio_write"),
+      Nan::New<FunctionTemplate>(aio_write)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("aio_append"),
+      Nan::New<FunctionTemplate>(aio_append)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("aio_write_full"),
+      Nan::New<FunctionTemplate>(aio_write_full)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("aio_flush"),
+      Nan::New<FunctionTemplate>(aio_flush)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("aio_flush_async"),
+      Nan::New<FunctionTemplate>(aio_flush_async)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("objects_list"),
+      Nan::New<FunctionTemplate>(objects_list)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<String>("objects_range"),
+        Nan::New<FunctionTemplate>(objects_range)->GetFunction());
   NanAssignPersistent(constructor, tpl);
-  target->Set(NanNew<String>("Ioctx"),
-      NanNew<FunctionTemplate>(constructor)->GetFunction());
+  target->Set(Nan::New<String>("Ioctx"),
+      Nan::New<FunctionTemplate>(constructor)->GetFunction());
 }
 
 bool Rados::require_connected() {
@@ -199,7 +199,7 @@ NAN_METHOD(Rados::connect) {
     obj->state = STATE_CONNECTED;
   }
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -227,7 +227,7 @@ NAN_METHOD(Rados::get_fsid) {
     NanReturnNull();
   }
 
-  NanReturnValue(NanNew<String>(fsid));
+  NanReturnValue(Nan::New<String>(fsid));
 }
 
 
@@ -274,7 +274,7 @@ NAN_METHOD(Rados::pool_create) {
     }
   }
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -292,7 +292,7 @@ NAN_METHOD(Rados::pool_delete) {
 
   int err = rados_pool_delete(obj->cluster, *pool_name);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -311,14 +311,14 @@ NAN_METHOD(Rados::pool_list) {
     NanReturnNull();
   }
 
-  Local<Array> pools = NanNew<Array>();
+  Local<Array> pools = Nan::New<Array>();
   const char *b = buffer;
   uint32_t array_id = 0;
   while (1) {
       if (*b == '\0') {
           break;
       }
-      pools->Set(array_id, NanNew<String>(b));
+      pools->Set(array_id, Nan::New<String>(b));
       b += strlen(b) + 1;
       array_id++;
   }
@@ -336,9 +336,9 @@ NAN_METHOD(Ioctx::pool_stat) {
     NanReturnNull();
   }
 
-  Local<Object> stat = NanNew<Object>();
-  stat->Set( NanNew<String>("num_bytes"), NanNew<Number>(pool_stat_t.num_bytes));
-  stat->Set( NanNew<String>("num_objects"), NanNew<Number>(pool_stat_t.num_objects) );
+  Local<Object> stat = Nan::New<Object>();
+  stat->Set( Nan::New<String>("num_bytes"), Nan::New<Number>(pool_stat_t.num_bytes));
+  stat->Set( Nan::New<String>("num_objects"), Nan::New<Number>(pool_stat_t.num_objects) );
 
   NanReturnValue(stat);
 }
@@ -358,7 +358,7 @@ NAN_METHOD(Ioctx::pool_set_auid) {
 
   int err = rados_ioctx_pool_set_auid(obj->ioctx, auid);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -372,10 +372,10 @@ NAN_METHOD(Ioctx::pool_get_auid) {
   int err = rados_ioctx_pool_get_auid(obj->ioctx, &auid);
 
   if (err < 0) {
-    NanReturnValue(NanNew<Number>(err));
+    NanReturnValue(Nan::New<Number>(err));
   }
 
-  NanReturnValue(NanNew<Number>(auid));
+  NanReturnValue(Nan::New<Number>(auid));
 }
 
 
@@ -406,7 +406,7 @@ NAN_METHOD(Ioctx::snap_create) {
 
   int err = rados_ioctx_snap_create(obj->ioctx, *snapname);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -424,7 +424,7 @@ NAN_METHOD(Ioctx::snap_remove) {
 
   int err = rados_ioctx_snap_remove(obj->ioctx, *snapname);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -444,7 +444,7 @@ NAN_METHOD(Ioctx::snap_rollback) {
 
   int err = rados_ioctx_snap_rollback(obj->ioctx, *oid, *snapname);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -494,7 +494,7 @@ NAN_METHOD(Ioctx::write) {
 
   int err = rados_write(obj->ioctx, *oid, buffer, size, offset);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -515,7 +515,7 @@ NAN_METHOD(Ioctx::write_full) {
 
   int err = rados_write_full(obj->ioctx, *oid, buffer, size);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -541,7 +541,7 @@ NAN_METHOD(Ioctx::clone_range) {
 
   int err = rados_clone_range(obj->ioctx, *dst, dst_off, *src, src_off, size);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -562,7 +562,7 @@ NAN_METHOD(Ioctx::append) {
 
   int err = rados_append(obj->ioctx, *oid, buffer, size);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -580,7 +580,7 @@ NAN_METHOD(Ioctx::remove) {
 
   int err = rados_remove(obj->ioctx, *oid);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -600,7 +600,7 @@ NAN_METHOD(Ioctx::trunc) {
 
   int err = rados_trunc(obj->ioctx, *oid, size);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -637,7 +637,7 @@ NAN_METHOD(Ioctx::getxattr) {
     NanReturnNull();
   }
 
-  NanReturnValue(NanNew<String>(buffer, size));
+  NanReturnValue(Nan::New<String>(buffer, size));
 }
 
 
@@ -660,7 +660,7 @@ NAN_METHOD(Ioctx::setxattr) {
 
   int err = rados_setxattr(obj->ioctx, *oid, *name, *buffer, size);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -680,7 +680,7 @@ NAN_METHOD(Ioctx::rmxattr) {
 
   int err = rados_rmxattr(obj->ioctx, *oid, *name);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -697,7 +697,7 @@ NAN_METHOD(Ioctx::getxattrs) {
   String::Utf8Value oid(args[0]);
   rados_xattrs_iter_t iter;
 
-  Local<Object> xattrs = NanNew<Object>();
+  Local<Object> xattrs = Nan::New<Object>();
   int err = rados_getxattrs(obj->ioctx, *oid, &iter);
   if (err < 0) {
     NanReturnNull();
@@ -715,7 +715,7 @@ NAN_METHOD(Ioctx::getxattrs) {
           break;
       }
 
-      xattrs->Set(NanNew<String>(name), NanNew<String>(val, len));
+      xattrs->Set(Nan::New<String>(name), Nan::New<String>(val, len));
   }
   rados_getxattrs_end(iter);
 
@@ -742,10 +742,10 @@ NAN_METHOD(Ioctx::stat) {
     NanReturnNull();
   }
 
-  Local<Object> stat = NanNew<Object>();
-  stat->Set( NanNew<String>("oid"), NanNew<String>(*oid) );
-  stat->Set( NanNew<String>("psize"), NanNew<Number>(psize) );
-  stat->Set( NanNew<String>("pmtime"), NanNew<Number>(pmtime) );
+  Local<Object> stat = Nan::New<Object>();
+  stat->Set( Nan::New<String>("oid"), Nan::New<String>(*oid) );
+  stat->Set( Nan::New<String>("psize"), Nan::New<Number>(psize) );
+  stat->Set( Nan::New<String>("pmtime"), Nan::New<Number>(pmtime) );
 
   NanReturnValue(stat);
 }
@@ -778,14 +778,14 @@ void Ioctx::callback_complete(uv_work_t *req) {
     Local<Value> argv[argc] = {
       NanNull(),
       NanBufferUse(asyncdata->buffer, asyncdata->size) };
-    if (asyncdata->err) argv[0] = NanNew<Number>(asyncdata->err);
+    if (asyncdata->err) argv[0] = Nan::New<Number>(asyncdata->err);
     asyncdata->callback.Call(argc, argv);
   }
   else {
     const unsigned argc = 1;
     Local<Value> argv[argc] = {
       NanNull() };
-    if (asyncdata->err) argv[0] = NanNew<Number>(asyncdata->err);
+    if (asyncdata->err) argv[0] = Nan::New<Number>(asyncdata->err);
     asyncdata->callback.Call(argc, argv);
   }
   
@@ -985,7 +985,7 @@ NAN_METHOD(Ioctx::aio_flush) {
   
   int err = rados_aio_flush(obj->ioctx);
 
-  NanReturnValue(NanNew<Number>(-err));
+  NanReturnValue(Nan::New<Number>(-err));
 }
 
 
@@ -1041,7 +1041,7 @@ NAN_METHOD(Ioctx::objects_list) {
     return NanThrowError("open list failed.");
   }
 
-  Local<Array> ret_list = NanNew<Array>();
+  Local<Array> ret_list = Nan::New<Array>();
   uint32_t array_id = 0;
   //Get the next object name and locator in the pool.
 
@@ -1049,7 +1049,7 @@ NAN_METHOD(Ioctx::objects_list) {
     const char *obj_name;
     err = rados_objects_list_next(h_ctx, &obj_name, NULL);
     if (err == 0) {
-      ret_list->Set(array_id, NanNew(obj_name));
+      ret_list->Set(array_id, Nan::New(obj_name));
       array_id++;
     }
   }
@@ -1089,14 +1089,14 @@ NAN_METHOD(Ioctx::objects_range) {
   if (err < 0) {
       return NanThrowError("seek list failed.");
   }
-  Local<Array> ret_list = NanNew<Array>();
+  Local<Array> ret_list = Nan::New<Array>();
   uint32_t array_id = 0;
 
   while(0 <= err && array_id < limit) {
     const char *obj_name;
     err = rados_objects_list_next(h_ctx, &obj_name, NULL);
     if (err == 0) {
-      ret_list->Set(array_id, NanNew(obj_name));
+      ret_list->Set(array_id, Nan::New(obj_name));
       array_id++;
     }
   }
