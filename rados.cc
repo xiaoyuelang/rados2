@@ -21,85 +21,85 @@ void Rados::Init(Handle<Object> target) {
   Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
   tpl->SetClassName(Nan::New<v8::String>("Rados").ToLocalChecked());
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("connect"),
-      Nan::New<FunctionTemplate>(connect)->GetFunction().ToLocalChecked());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("shutdown"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("connect").ToLocalChecked(),
+      Nan::New<FunctionTemplate>(connect)->GetFunction());
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("shutdown").ToLocalChecked(),
       Nan::New<FunctionTemplate>(shutdown)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("get_fsid"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("get_fsid").ToLocalChecked(),
       Nan::New<FunctionTemplate>(get_fsid)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_create"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_create").ToLocalChecked(),
       Nan::New<FunctionTemplate>(pool_create)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_delete"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_delete").ToLocalChecked(),
       Nan::New<FunctionTemplate>(pool_delete)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_list"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_list").ToLocalChecked(),
       Nan::New<FunctionTemplate>(pool_list)->GetFunction());
 
   NanAssignPersistent(constructor, tpl);
-  target->Set(Nan::New<v8::String>("Rados"),
+  target->Set(Nan::New<v8::String>("Rados").ToLocalChecked(),
       Nan::New<FunctionTemplate>(constructor)->GetFunction());
 }
 
 
 void Ioctx::Init(Handle<Object> target) {
   Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
-  tpl->SetClassName(Nan::New<v8::String>("Ioctx"));
+  tpl->SetClassName(Nan::New<v8::String>("Ioctx").ToLocalChecked());
   tpl->InstanceTemplate()->SetInternalFieldCount(1);
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_stat"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_stat").ToLocalChecked(),
        Nan::New<FunctionTemplate>(pool_stat)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_set_auid"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_set_auid").ToLocalChecked(),
       Nan::New<FunctionTemplate>(pool_set_auid)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_get_auid"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("pool_get_auid").ToLocalChecked(),
       Nan::New<FunctionTemplate>(pool_get_auid)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("destroy"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("destroy").ToLocalChecked(),
       Nan::New<FunctionTemplate>(destroy)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("snap_create"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("snap_create").ToLocalChecked(),
       Nan::New<FunctionTemplate>(snap_create)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("snap_remove"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("snap_remove").ToLocalChecked(),
       Nan::New<FunctionTemplate>(snap_remove)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("snap_rollback"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("snap_rollback").ToLocalChecked(),
       Nan::New<FunctionTemplate>(snap_rollback)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("read"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("read").ToLocalChecked(),
       Nan::New<FunctionTemplate>(read)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("write"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("write").ToLocalChecked(),
       Nan::New<FunctionTemplate>(write)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("write_full"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("write_full").ToLocalChecked(),
       Nan::New<FunctionTemplate>(write_full)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("clone_range"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("clone_range").ToLocalChecked(),
       Nan::New<FunctionTemplate>(clone_range)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("append"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("append").ToLocalChecked(),
       Nan::New<FunctionTemplate>(append)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("remove"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("remove").ToLocalChecked(),
       Nan::New<FunctionTemplate>(remove)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("trunc"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("trunc").ToLocalChecked(),
       Nan::New<FunctionTemplate>(trunc)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("stat"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("stat").ToLocalChecked(),
       Nan::New<FunctionTemplate>(stat)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("getxattr"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("getxattr").ToLocalChecked(),
       Nan::New<FunctionTemplate>(getxattr)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("setxattr"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("setxattr").ToLocalChecked(),
       Nan::New<FunctionTemplate>(setxattr)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("rmxattr"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("rmxattr").ToLocalChecked(),
       Nan::New<FunctionTemplate>(rmxattr)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("getxattrs"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("getxattrs").ToLocalChecked(),
       Nan::New<FunctionTemplate>(getxattrs)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_read"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_read").ToLocalChecked(),
       Nan::New<FunctionTemplate>(aio_read)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_write"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_write").ToLocalChecked(),
       Nan::New<FunctionTemplate>(aio_write)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_append"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_append").ToLocalChecked(),
       Nan::New<FunctionTemplate>(aio_append)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_write_full"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_write_full").ToLocalChecked(),
       Nan::New<FunctionTemplate>(aio_write_full)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_flush"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_flush").ToLocalChecked(),
       Nan::New<FunctionTemplate>(aio_flush)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_flush_async"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("aio_flush_async").ToLocalChecked(),
       Nan::New<FunctionTemplate>(aio_flush_async)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("objects_list"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("objects_list").ToLocalChecked(),
       Nan::New<FunctionTemplate>(objects_list)->GetFunction());
-  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("objects_range"),
+  tpl->PrototypeTemplate()->Set(Nan::New<v8::String>("objects_range").ToLocalChecked(),
         Nan::New<FunctionTemplate>(objects_range)->GetFunction());
   NanAssignPersistent(constructor, tpl);
-  target->Set(Nan::New<v8::String>("Ioctx"),
+  target->Set(Nan::New<v8::String>("Ioctx").ToLocalChecked(),
       Nan::New<FunctionTemplate>(constructor)->GetFunction());
 }
 
