@@ -50,7 +50,7 @@ class Ioctx : public node::ObjectWrap {
   ~Ioctx();
   
   typedef struct AsyncData {
-    NanCallback callback;
+    Nan::Callback callback;
     char* buffer;
     int cb_buffer;
     size_t size;
