@@ -619,7 +619,8 @@ NAN_METHOD(Ioctx::getxattr) {
 		info.GetReturnValue().SetNull();
 	}
 
-	info.GetReturnValue().Set (Nan::New(buffer, size));}
+	info.GetReturnValue().Set (Nan::New(buffer, size).ToLocalChecked());
+}
 
 NAN_METHOD(Ioctx::setxattr) {
 	Nan::HandleScope scope;
