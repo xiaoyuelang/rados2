@@ -315,7 +315,7 @@ NAN_METHOD(Rados::pool_list) {
 		if (*b == '\0') {
 			break;
 		}
-		pools->Set(array_id, Nan::New(b));
+		pools->Set(array_id, Nan::New(b).ToLocalChecked());
 		b += strlen(b) + 1;
 		array_id++;
 	}
