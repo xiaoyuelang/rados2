@@ -193,7 +193,7 @@ NAN_METHOD(Rados::New) {
 	obj->state = STATE_CONFIGURED;
 
 	obj->Wrap(info.This());
-	Nan::ReturnValue(info.This());
+	Nan::ReturnValue().Set(info.This());
 }
 
 NAN_METHOD(Ioctx::New) {
