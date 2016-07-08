@@ -694,7 +694,7 @@ NAN_METHOD(Ioctx::getxattrs) {
 			break;
 		}
 
-		xattrs->Set(Nan::New<v8::String>(name), Nan::New<v8::String>(val, len));
+		xattrs->Set(Nan::New(name).ToLocalChecked(), Nan::New(val, len).ToLocalChecked());
 	}
 	rados_getxattrs_end (iter);
 
