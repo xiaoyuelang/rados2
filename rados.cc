@@ -599,7 +599,7 @@ NAN_METHOD(Ioctx::getxattr) {
 	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	v8::String::Utf8Value name(info[1]);
-	size_t size = Null;
+	size_t size = 0;
 	if (info[2]->IsNumber()) {
 		size = info[2]->Uint32Value();
 	} else {
