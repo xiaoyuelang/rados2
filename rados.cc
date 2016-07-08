@@ -459,9 +459,7 @@ NAN_METHOD(Ioctx::read) {
 		delete buffer;
 		info.GetReturnValue().SetNull();
 	} else {
-		node::Buffer slowBuffer = node::Buffer::New(err);
-		memcpy(node::Buffer::Data(slowBuffer), buffer, err);
-		info.GetReturnValue().Set(slowBuffer);
+		info.GetReturnValue().Set(Nan::CopyBuffer(buffer, err));
 	}
 
 }
