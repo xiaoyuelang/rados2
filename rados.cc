@@ -193,7 +193,7 @@ NAN_METHOD(Rados::New) {
 	obj->state = STATE_CONFIGURED;
 
 	obj->Wrap(info.This());
-	NanReturnValue(info.This());
+	Nan::ReturnValue(info.This());
 }
 
 NAN_METHOD(Ioctx::New) {
@@ -234,7 +234,7 @@ Nan::HandleScope scope;
 	if (err == 0) {
 		obj->state = STATE_CONNECTED;
 	}
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Rados::shutdown) {
@@ -260,7 +260,7 @@ Nan::HandleScope scope;
 		NanReturnNull();
 	}
 
-	NanReturnValue (Nan::New<v8::String>(fsid));}
+	Nan::ReturnValue (Nan::New<v8::String>(fsid));}
 
 NAN_METHOD(Rados::pool_create) {
 Nan::HandleScope scope;
@@ -305,7 +305,7 @@ Nan::HandleScope scope;
 		}
 	}
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Rados::pool_delete) {
@@ -322,7 +322,7 @@ NAN_METHOD(Rados::pool_delete) {
 
 	int err = rados_pool_delete(obj->cluster, *pool_name);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Rados::pool_list) {
@@ -352,7 +352,7 @@ Nan::HandleScope scope;
 		array_id++;
 	}
 
-	NanReturnValue (pools);
+	Nan::ReturnValue (pools);
 }
 
 NAN_METHOD(Ioctx::pool_stat) {
@@ -369,7 +369,7 @@ Nan::HandleScope scope;
 	stat->Set( Nan::New<v8::String>("num_bytes"), Nan::New<Number>(pool_stat_t.num_bytes));
 	stat->Set( Nan::New<v8::String>("num_objects"), Nan::New<Number>(pool_stat_t.num_objects) );
 
-	NanReturnValue (stat);
+	Nan::ReturnValue (stat);
 }
 
 NAN_METHOD(Ioctx::pool_set_auid) {
@@ -386,7 +386,7 @@ Nan::HandleScope scope;
 
 	int err = rados_ioctx_pool_set_auid(obj->ioctx, auid);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::pool_get_auid) {
@@ -399,10 +399,10 @@ Nan::HandleScope scope;
 	int err = rados_ioctx_pool_get_auid(obj->ioctx, &auid);
 
 	if (err < 0) {
-		NanReturnValue(Nan::New<Number>(err));
+		Nan::ReturnValue(Nan::New<Number>(err));
 	}
 
-	NanReturnValue (Nan::New<Number>(auid));}
+	Nan::ReturnValue (Nan::New<Number>(auid));}
 
 NAN_METHOD(Ioctx::destroy) {
 Nan::HandleScope scope;
@@ -430,7 +430,7 @@ Nan::HandleScope scope;
 
 	int err = rados_ioctx_snap_create(obj->ioctx, *snapname);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::snap_remove) {
@@ -447,7 +447,7 @@ Nan::HandleScope scope;
 
 	int err = rados_ioctx_snap_remove(obj->ioctx, *snapname);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::snap_rollback) {
@@ -466,7 +466,7 @@ Nan::HandleScope scope;
 
 	int err = rados_ioctx_snap_rollback(obj->ioctx, *oid, *snapname);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::read) {
@@ -491,7 +491,7 @@ Nan::HandleScope scope;
 		delete buffer;
 		NanReturnNull();
 	} else {
-		NanReturnValue(NanBufferUse(buffer, err));
+		Nan::ReturnValue(NanBufferUse(buffer, err));
 	}
 
 }
@@ -516,7 +516,7 @@ Nan::HandleScope scope;
 
 	int err = rados_write(obj->ioctx, *oid, buffer, size, offset);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::write_full) {
@@ -538,7 +538,7 @@ Nan::HandleScope scope;
 
 	int err = rados_write_full(obj->ioctx, *oid, buffer, size);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::clone_range) {
@@ -563,7 +563,7 @@ Nan::HandleScope scope;
 
 	int err = rados_clone_range(obj->ioctx, *dst, dst_off, *src, src_off, size);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::append) {
@@ -585,7 +585,7 @@ Nan::HandleScope scope;
 
 	int err = rados_append(obj->ioctx, *oid, buffer, size);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::remove) {
@@ -602,7 +602,7 @@ Nan::HandleScope scope;
 
 	int err = rados_remove(obj->ioctx, *oid);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::trunc) {
@@ -621,7 +621,7 @@ Nan::HandleScope scope;
 
 	int err = rados_trunc(obj->ioctx, *oid, size);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::getxattr) {
@@ -657,7 +657,7 @@ Nan::HandleScope scope;
 		NanReturnNull();
 	}
 
-	NanReturnValue (Nan::New<v8::String>(buffer, size));}
+	Nan::ReturnValue (Nan::New<v8::String>(buffer, size));}
 
 NAN_METHOD(Ioctx::setxattr) {
 Nan::HandleScope scope;
@@ -679,7 +679,7 @@ Nan::HandleScope scope;
 
 	int err = rados_setxattr(obj->ioctx, *oid, *name, *buffer, size);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::rmxattr) {
@@ -698,7 +698,7 @@ Nan::HandleScope scope;
 
 	int err = rados_rmxattr(obj->ioctx, *oid, *name);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::getxattrs) {
@@ -736,7 +736,7 @@ Nan::HandleScope scope;
 	}
 	rados_getxattrs_end (iter);
 
-	NanReturnValue (xattrs);
+	Nan::ReturnValue (xattrs);
 }
 
 NAN_METHOD(Ioctx::stat) {
@@ -763,7 +763,7 @@ Nan::HandleScope scope;
 	stat->Set( Nan::New<v8::String>("psize"), Nan::New<Number>(psize) );
 	stat->Set( Nan::New<v8::String>("pmtime"), Nan::New<Number>(pmtime) );
 
-	NanReturnValue (stat);
+	Nan::ReturnValue (stat);
 }
 
 void Ioctx::wait_complete(uv_work_t *req) {
@@ -1002,7 +1002,7 @@ Nan::HandleScope scope;
 
 	int err = rados_aio_flush(obj->ioctx);
 
-	NanReturnValue(Nan::New<Number>(-err));
+	Nan::ReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::aio_flush_async) {
@@ -1075,7 +1075,7 @@ Nan::HandleScope scope;
 		return Nan::ThrowError("list_next failed.");
 	}
 
-	NanReturnValue (ret_list);
+	Nan::ReturnValue (ret_list);
 }
 
 NAN_METHOD(Ioctx::objects_range) {
@@ -1122,5 +1122,5 @@ NAN_METHOD(Ioctx::objects_range) {
 		return Nan::ThrowError("list_next failed.");
 	}
 
-	NanReturnValue (ret_list);
+	Nan::ReturnValue (ret_list);
 }
