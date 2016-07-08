@@ -208,11 +208,10 @@ NAN_METHOD(Rados::shutdown) {
 	Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
-	if ( !obj->require_connected() ) info.GetReturnValue().SetNull();
-
-	rados_shutdown(obj->cluster);
-	obj->state = STATE_DESTROYED;
-
+	if ( obj->require_connected() ) {
+		rados_shutdown(obj->cluster);
+		obj->state = STATE_DESTROYED;
+	}
 	info.GetReturnValue().SetNull();
 }
 
