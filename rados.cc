@@ -752,15 +752,17 @@ void Ioctx::callback_complete(uv_work_t *req) {
 	if (asyncdata->cb_buffer) {
 		const unsigned argc = 2;
 		Local<Value> argv[argc] = {
-			NanNull(),
-			NanBufferUse(asyncdata->buffer, asyncdata->size)};
+			Nan::Null(),
+			Nan::CopyBuffer(asyncdata->buffer, asyncdata->size).ToLocalChecked()
+		};
 		if (asyncdata->err)
 			argv[0] = Nan::New < Number > (asyncdata->err);
 		asyncdata->callback.Call(argc, argv);
 	} else {
 		const unsigned argc = 1;
 		Local<Value> argv[argc] = {
-			NanNull()};
+			Nan::Null()
+		};
 		if (asyncdata->err)
 			argv[0] = Nan::New < Number > (asyncdata->err);
 		asyncdata->callback.Call(argc, argv);
@@ -1021,7 +1023,7 @@ NAN_METHOD(Ioctx::objects_list) {
 		const char *obj_name;
 		err = rados_objects_list_next(h_ctx, &obj_name, NULL);
 		if (err == 0) {
-			ret_list->Set(array_id, Nan::New(obj_name));
+			ret_list->Set(array_id, Nan::New(obj_name).ToLocalChecked());
 			array_id++;
 		}
 	}
@@ -1068,7 +1070,7 @@ NAN_METHOD(Ioctx::objects_range) {
 		const char *obj_name;
 		err = rados_objects_list_next(h_ctx, &obj_name, NULL);
 		if (err == 0) {
-			ret_list->Set(array_id, Nan::New(obj_name));
+			ret_list->Set(array_id, Nan::New(obj_name).ToLocalChecked());
 			array_id++;
 		}
 	}
