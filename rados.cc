@@ -459,7 +459,7 @@ NAN_METHOD(Ioctx::read) {
 		delete buffer;
 		info.GetReturnValue().SetNull();
 	} else {
-		info.GetReturnValue().Set(Nan::CopyBuffer(buffer, err));
+		info.GetReturnValue().Set(Nan::CopyBuffer(buffer, err).ToLocalChecked());
 	}
 
 }
