@@ -1,4 +1,5 @@
 //#define BUILDING_NODE_EXTENSION
+//https://github.com/ibmdb/node-ibm_db/blob/master/src/odbc.cpp 参考
 #include <node.h>
 #include <node_buffer.h>
 #include "rados.h"
