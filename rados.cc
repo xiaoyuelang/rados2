@@ -15,15 +15,12 @@ Rados::Rados() {
 
 Rados::~Rados() {
 }
-;
 
 Nan::Persistent<Function> Ioctx::constructor;
 Ioctx::Ioctx() {
 }
-;
 Ioctx::~Ioctx() {
 }
-;
 
 void Rados::Init(Handle<Object> exports) {
 	Local < FunctionTemplate > tpl = Nan::New < FunctionTemplate > (New);
