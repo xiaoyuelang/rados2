@@ -165,7 +165,7 @@ bool Ioctx::require_created() {
 }
 
 NAN_METHOD(Rados::New) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (!args.IsConstructCall()) {
 		return Nan::ThrowError("Rados object must be instantiated with 'new' statement");
@@ -197,7 +197,7 @@ NAN_METHOD(Rados::New) {
 }
 
 NAN_METHOD(Ioctx::New) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (!args.IsConstructCall()) {
 		return Nan::ThrowError("Ioctx object must be instantiated with 'new' statement");
@@ -222,7 +222,7 @@ NAN_METHOD(Ioctx::New) {
 }
 
 NAN_METHOD(Rados::connect) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
 
@@ -239,7 +239,7 @@ NAN_METHOD(Rados::connect) {
 }
 
 NAN_METHOD(Rados::shutdown) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
 	if ( !obj->require_connected() ) NanReturnNull();
@@ -251,7 +251,7 @@ NAN_METHOD(Rados::shutdown) {
 }
 
 NAN_METHOD(Rados::get_fsid) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
 	if ( !obj->require_connected() ) NanReturnNull();
@@ -264,7 +264,7 @@ NAN_METHOD(Rados::get_fsid) {
 	NanReturnValue (Nan::New<v8::String>(fsid));}
 
 NAN_METHOD(Rados::pool_create) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			!args[0]->Isv8::String()) {
@@ -310,7 +310,7 @@ NAN_METHOD(Rados::pool_create) {
 }
 
 NAN_METHOD(Rados::pool_delete) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			!args[0]->Isv8::String()) {
@@ -327,7 +327,7 @@ NAN_METHOD(Rados::pool_delete) {
 }
 
 NAN_METHOD(Rados::pool_list) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
 	if ( !obj->require_connected() ) NanReturnNull();
@@ -357,7 +357,7 @@ NAN_METHOD(Rados::pool_list) {
 }
 
 NAN_METHOD(Ioctx::pool_stat) {
-	NanScope();
+Nan::HandleScope scope;
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
 	if ( !obj->require_created() ) NanReturnNull();
 	rados_pool_stat_t pool_stat_t;
@@ -374,7 +374,7 @@ NAN_METHOD(Ioctx::pool_stat) {
 }
 
 NAN_METHOD(Ioctx::pool_set_auid) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			args[1]->IsNumber()) {
@@ -391,7 +391,7 @@ NAN_METHOD(Ioctx::pool_set_auid) {
 }
 
 NAN_METHOD(Ioctx::pool_get_auid) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
 	if ( !obj->require_created() ) NanReturnNull();
@@ -406,7 +406,7 @@ NAN_METHOD(Ioctx::pool_get_auid) {
 	NanReturnValue (Nan::New<Number>(auid));}
 
 NAN_METHOD(Ioctx::destroy) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
 	if ( !obj->require_created() ) NanReturnNull();
@@ -418,7 +418,7 @@ NAN_METHOD(Ioctx::destroy) {
 }
 
 NAN_METHOD(Ioctx::snap_create) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			!args[0]->Isv8::String()) {
@@ -435,7 +435,7 @@ NAN_METHOD(Ioctx::snap_create) {
 }
 
 NAN_METHOD(Ioctx::snap_remove) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			!args[0]->Isv8::String()) {
@@ -452,7 +452,7 @@ NAN_METHOD(Ioctx::snap_remove) {
 }
 
 NAN_METHOD(Ioctx::snap_rollback) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->Isv8::String() ||
@@ -471,7 +471,7 @@ NAN_METHOD(Ioctx::snap_rollback) {
 }
 
 NAN_METHOD(Ioctx::read) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			!args[0]->Isv8::String()) {
@@ -498,7 +498,7 @@ NAN_METHOD(Ioctx::read) {
 }
 
 NAN_METHOD(Ioctx::write) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->Isv8::String() ||
@@ -521,7 +521,7 @@ NAN_METHOD(Ioctx::write) {
 }
 
 NAN_METHOD(Ioctx::write_full) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->Isv8::String() ||
@@ -543,7 +543,7 @@ NAN_METHOD(Ioctx::write_full) {
 }
 
 NAN_METHOD(Ioctx::clone_range) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 5 ||
 			!args[0]->Isv8::String() ||
@@ -568,7 +568,7 @@ NAN_METHOD(Ioctx::clone_range) {
 }
 
 NAN_METHOD(Ioctx::append) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->Isv8::String() ||
@@ -590,7 +590,7 @@ NAN_METHOD(Ioctx::append) {
 }
 
 NAN_METHOD(Ioctx::remove) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() != 1 ||
 			!args[0]->Isv8::String()) {
@@ -607,7 +607,7 @@ NAN_METHOD(Ioctx::remove) {
 }
 
 NAN_METHOD(Ioctx::trunc) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->Isv8::String() ||
@@ -626,7 +626,7 @@ NAN_METHOD(Ioctx::trunc) {
 }
 
 NAN_METHOD(Ioctx::getxattr) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->Isv8::String() ||
@@ -661,7 +661,7 @@ NAN_METHOD(Ioctx::getxattr) {
 	NanReturnValue (Nan::New<v8::String>(buffer, size));}
 
 NAN_METHOD(Ioctx::setxattr) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 3 ||
 			!args[0]->Isv8::String() ||
@@ -684,7 +684,7 @@ NAN_METHOD(Ioctx::setxattr) {
 }
 
 NAN_METHOD(Ioctx::rmxattr) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->Isv8::String() ||
@@ -703,7 +703,7 @@ NAN_METHOD(Ioctx::rmxattr) {
 }
 
 NAN_METHOD(Ioctx::getxattrs) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			!args[0]->Isv8::String()) {
@@ -741,7 +741,7 @@ NAN_METHOD(Ioctx::getxattrs) {
 }
 
 NAN_METHOD(Ioctx::stat) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() != 1 ||
 			!args[0]->Isv8::String()) {
@@ -784,7 +784,7 @@ void Ioctx::wait_complete(uv_work_t *req) {
 }
 
 void Ioctx::callback_complete(uv_work_t *req) {
-	NanScope();
+Nan::HandleScope scope;
 
 	AsyncData *asyncdata = (AsyncData *) req->data;
 
@@ -809,7 +809,7 @@ void Ioctx::callback_complete(uv_work_t *req) {
 }
 
 NAN_METHOD(Ioctx::aio_read) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 4 ||
 			!args[0]->Isv8::String() ||
@@ -854,7 +854,7 @@ NAN_METHOD(Ioctx::aio_read) {
 }
 
 NAN_METHOD(Ioctx::aio_write) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 5 ||
 			!args[0]->Isv8::String() ||
@@ -902,7 +902,7 @@ NAN_METHOD(Ioctx::aio_write) {
 }
 
 NAN_METHOD(Ioctx::aio_append) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 4 ||
 			!args[0]->Isv8::String() ||
@@ -949,7 +949,7 @@ NAN_METHOD(Ioctx::aio_append) {
 }
 
 NAN_METHOD(Ioctx::aio_write_full) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 4 ||
 			!args[0]->Isv8::String() ||
@@ -996,7 +996,7 @@ NAN_METHOD(Ioctx::aio_write_full) {
 }
 
 NAN_METHOD(Ioctx::aio_flush) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
 	if ( !obj->require_created() ) NanReturnNull();
@@ -1007,7 +1007,7 @@ NAN_METHOD(Ioctx::aio_flush) {
 }
 
 NAN_METHOD(Ioctx::aio_flush_async) {
-	NanScope();
+Nan::HandleScope scope;
 
 	if (args.Length() < 1 ||
 			!args[0]->IsFunction()) {
@@ -1046,7 +1046,7 @@ NAN_METHOD(Ioctx::aio_flush_async) {
 
 #define ENOENT 2
 NAN_METHOD(Ioctx::objects_list) {
-	NanScope();
+Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
 	if ( !obj->require_created() ) NanReturnNull();
@@ -1080,7 +1080,7 @@ NAN_METHOD(Ioctx::objects_list) {
 }
 
 NAN_METHOD(Ioctx::objects_range) {
-	NanScope();
+	Nan::HandleScope scope;
 
 	if (args.Length() < 2 ||
 			!args[0]->IsNumber() ||
