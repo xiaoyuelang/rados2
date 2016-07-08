@@ -171,9 +171,9 @@ NAN_METHOD(Rados::New) {
 		return Nan::ThrowError("Rados object must be instantiated with 'new' statement");
 	}
 	if (info.Length() < 3 ||
-			!info[0]->Isv8::String() ||
-			!info[1]->Isv8::String() ||
-			!info[2]->Isv8::String()) {
+			!info[0]->IsString() ||
+			!info[1]->IsString() ||
+			!info[2]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -203,7 +203,7 @@ NAN_METHOD(Ioctx::New) {
 		return Nan::ThrowError("Ioctx object must be instantiated with 'new' statement");
 	}
 	if (info.Length() < 2 ||
-			!info[1]->Isv8::String()) {
+			!info[1]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -266,7 +266,7 @@ NAN_METHOD(Rados::pool_create) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -312,7 +312,7 @@ NAN_METHOD(Rados::pool_delete) {
 	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -420,7 +420,7 @@ NAN_METHOD(Ioctx::snap_create) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -437,7 +437,7 @@ NAN_METHOD(Ioctx::snap_remove) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -454,8 +454,8 @@ NAN_METHOD(Ioctx::snap_rollback) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
-			!info[0]->Isv8::String() ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString() ||
+			!info[0]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -473,7 +473,7 @@ NAN_METHOD(Ioctx::read) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -500,7 +500,7 @@ NAN_METHOD(Ioctx::write) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!Buffer::HasInstance(info[1])) {
 		return Nan::ThrowError("Bad argument.");
 	}
@@ -523,7 +523,7 @@ NAN_METHOD(Ioctx::write_full) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!Buffer::HasInstance(info[1])) {
 		return Nan::ThrowError("Bad argument.");
 	}
@@ -545,9 +545,9 @@ NAN_METHOD(Ioctx::clone_range) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 5 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!info[1]->IsNumber() ||
-			!info[2]->Isv8::String() ||
+			!info[2]->IsString() ||
 			!info[3]->IsNumber() ||
 			!info[4]->IsNumber()) {
 		return Nan::ThrowError("Bad argument.");
@@ -570,7 +570,7 @@ NAN_METHOD(Ioctx::append) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!Buffer::HasInstance(info[1])) {
 		return Nan::ThrowError("Bad argument.");
 	}
@@ -592,7 +592,7 @@ NAN_METHOD(Ioctx::remove) {
 Nan::HandleScope scope;
 
 	if (info.Length() != 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		NanReturnNull();
 	}
 
@@ -609,7 +609,7 @@ NAN_METHOD(Ioctx::trunc) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!info[1]->IsNumber()) {
 		return Nan::ThrowError("Bad argument.");
 	}
@@ -628,8 +628,8 @@ NAN_METHOD(Ioctx::getxattr) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
-			!info[0]->Isv8::String() ||
-			!info[1]->Isv8::String()) {
+			!info[0]->IsString() ||
+			!info[1]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -663,9 +663,9 @@ NAN_METHOD(Ioctx::setxattr) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 3 ||
-			!info[0]->Isv8::String() ||
-			!info[1]->Isv8::String() ||
-			!info[2]->Isv8::String()) {
+			!info[0]->IsString() ||
+			!info[1]->IsString() ||
+			!info[2]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -686,8 +686,8 @@ NAN_METHOD(Ioctx::rmxattr) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
-			!info[0]->Isv8::String() ||
-			!info[1]->Isv8::String()) {
+			!info[0]->IsString() ||
+			!info[1]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -705,7 +705,7 @@ NAN_METHOD(Ioctx::getxattrs) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
@@ -743,7 +743,7 @@ NAN_METHOD(Ioctx::stat) {
 Nan::HandleScope scope;
 
 	if (info.Length() != 1 ||
-			!info[0]->Isv8::String()) {
+			!info[0]->IsString()) {
 		NanReturnNull();
 	}
 
@@ -811,7 +811,7 @@ NAN_METHOD(Ioctx::aio_read) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 4 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!info[3]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
 	}
@@ -856,7 +856,7 @@ NAN_METHOD(Ioctx::aio_write) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 5 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!Buffer::HasInstance(info[1]) ||
 			!info[4]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
@@ -904,7 +904,7 @@ NAN_METHOD(Ioctx::aio_append) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 4 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!Buffer::HasInstance(info[1]) ||
 			!info[3]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
@@ -951,7 +951,7 @@ NAN_METHOD(Ioctx::aio_write_full) {
 Nan::HandleScope scope;
 
 	if (info.Length() < 4 ||
-			!info[0]->Isv8::String() ||
+			!info[0]->IsString() ||
 			!Buffer::HasInstance(info[1]) ||
 			!info[3]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
