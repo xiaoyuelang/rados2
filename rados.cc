@@ -227,7 +227,7 @@ NAN_METHOD(Rados::get_fsid) {
 		info.GetReturnValue().SetNull();
 	}
 
-	info.GetReturnValue().Set(Nan::New<v8::String>(fsid));
+	info.GetReturnValue().Set(New(fsid).ToLocalChecked());
 }
 
 NAN_METHOD(Rados::pool_create) {
