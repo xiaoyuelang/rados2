@@ -721,9 +721,9 @@ NAN_METHOD(Ioctx::stat) {
 	}
 
 	Local<Object> stat = Nan::New<Object>();
-	stat->Set( Nan::New<v8::String>("oid"), Nan::New<v8::String>(*oid) );
-	stat->Set( Nan::New<v8::String>("psize"), Nan::New<Number>(psize) );
-	stat->Set( Nan::New<v8::String>("pmtime"), Nan::New<Number>(pmtime) );
+	stat->Set( Nan::New<v8::String>("oid").ToLocalChecked(), Nan::New<v8::String>(*oid).ToLocalChecked() );
+	stat->Set( Nan::New<v8::String>("psize").ToLocalChecked(), Nan::New<Number>(psize) );
+	stat->Set( Nan::New<v8::String>("pmtime").ToLocalChecked(), Nan::New<Number>(pmtime) );
 
 	info.GetReturnValue().Set (stat);
 }
