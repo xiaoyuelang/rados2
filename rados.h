@@ -34,7 +34,7 @@ class Rados : public node::ObjectWrap {
   static NAN_METHOD(pool_delete);
   static NAN_METHOD(pool_list);
 
-  static v8::Persistent<v8::FunctionTemplate> constructor;
+  static v8::Persistent<v8::Function> constructor;
 };
 
 class Ioctx : public node::ObjectWrap {
