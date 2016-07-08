@@ -9,7 +9,7 @@
 using namespace v8;
 using namespace node;
 
-Persistent<Function> Rados::constructor;
+Nan::Persistent<Function> Rados::constructor;
 Rados::Rados() {
 }
 ;
@@ -17,7 +17,7 @@ Rados::~Rados() {
 }
 ;
 
-Persistent<Function> Ioctx::constructor;
+Nan::Persistent<Function> Ioctx::constructor;
 Ioctx::Ioctx() {
 }
 ;

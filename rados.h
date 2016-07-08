@@ -34,7 +34,7 @@ class Rados : public node::ObjectWrap {
   static NAN_METHOD(pool_delete);
   static NAN_METHOD(pool_list);
 
-  static v8::Persistent<v8::Function> constructor;
+  static Nan::Persistent<v8::Function> constructor;
 };
 
 class Ioctx : public node::ObjectWrap {
@@ -92,7 +92,7 @@ class Ioctx : public node::ObjectWrap {
   static NAN_METHOD(aio_flush_async);
   static NAN_METHOD(objects_list);
   static NAN_METHOD(objects_range);
-  static v8::Persistent<v8::Function> constructor;
+  static Nan::Persistent<v8::Function> constructor;
 };
 
 
