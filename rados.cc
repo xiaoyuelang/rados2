@@ -50,8 +50,7 @@ void Rados::Init(Handle<Object> exports) {
 
 	constructor.Reset(tpl->GetFunction());
 
-	exports->Set(Nan::New < v8::String > ("Rados").ToLocalChecked(),
-			Nan::New < FunctionTemplate > tpl->GetFunction());
+	exports->Set(Nan::New<v8::String>("Rados").ToLocalChecked(), tpl->GetFunction());
 }
 
 void Ioctx::Init(Handle<Object> exports) {
