@@ -165,22 +165,22 @@ bool Ioctx::require_created() {
 }
 
 NAN_METHOD(Rados::New) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
-	if (!args.IsConstructCall()) {
+	if (!info.IsConstructCall()) {
 		return Nan::ThrowError("Rados object must be instantiated with 'new' statement");
 	}
-	if (args.Length() < 3 ||
-			!args[0]->Isv8::String() ||
-			!args[1]->Isv8::String() ||
-			!args[2]->Isv8::String()) {
+	if (info.Length() < 3 ||
+			!info[0]->Isv8::String() ||
+			!info[1]->Isv8::String() ||
+			!info[2]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
 	Rados* obj = new Rados();
-	v8::String::Utf8Value cluster_name(args[0]);
-	v8::String::Utf8Value user_name(args[1]);
-	v8::String::Utf8Value conffile(args[2]);
+	v8::String::Utf8Value cluster_name(info[0]);
+	v8::String::Utf8Value user_name(info[1]);
+	v8::String::Utf8Value conffile(info[2]);
 	uint64_t flags = 0;
 
 	if ( rados_create2(&obj->cluster, *cluster_name, *user_name, flags) != 0 ) {
@@ -192,39 +192,39 @@ Nan::HandleScope scope;
 	}
 	obj->state = STATE_CONFIGURED;
 
-	obj->Wrap(args.This());
-	NanReturnValue(args.This());
+	obj->Wrap(info.This());
+	NanReturnValue(info.This());
 }
 
 NAN_METHOD(Ioctx::New) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
-	if (!args.IsConstructCall()) {
+	if (!info.IsConstructCall()) {
 		return Nan::ThrowError("Ioctx object must be instantiated with 'new' statement");
 	}
-	if (args.Length() < 2 ||
-			!args[1]->Isv8::String()) {
+	if (info.Length() < 2 ||
+			!info[1]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
 	Ioctx* obj = new Ioctx();
-	Rados* cluster = ObjectWrap::Unwrap < Rados > (args[0]->ToObject());
+	Rados* cluster = ObjectWrap::Unwrap < Rados > (info[0]->ToObject());
 	if ( !cluster->require_connected() ) NanReturnNull();
-	v8::String::Utf8Value pool(args[1]);
+	v8::String::Utf8Value pool(info[1]);
 	if ( rados_ioctx_create(cluster->cluster, *pool, &obj->ioctx) != 0 ) {
 		return Nan::ThrowError("create Ioctx failed");
 	}
 	obj->rados = cluster;
 	obj->state = STATE_CREATED;
 
-	obj->Wrap(args.This());
+	obj->Wrap(info.This());
 	NanReturnThis();
 }
 
 NAN_METHOD(Rados::connect) {
 Nan::HandleScope scope;
 
-	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
+	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
 
 	if ( obj->state != STATE_CONFIGURED )
 	return Nan::ThrowError("Cluster should be in configured state.");
@@ -234,14 +234,13 @@ Nan::HandleScope scope;
 	if (err == 0) {
 		obj->state = STATE_CONNECTED;
 	}
-
 	NanReturnValue(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Rados::shutdown) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
-	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
+	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
 	if ( !obj->require_connected() ) NanReturnNull();
 
 	rados_shutdown(obj->cluster);
@@ -253,7 +252,7 @@ Nan::HandleScope scope;
 NAN_METHOD(Rados::get_fsid) {
 Nan::HandleScope scope;
 
-	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
+	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
 	if ( !obj->require_connected() ) NanReturnNull();
 
 	char fsid[37];
@@ -266,25 +265,25 @@ Nan::HandleScope scope;
 NAN_METHOD(Rados::pool_create) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() < 1 ||
+			!info[0]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
+	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
 	if ( !obj->require_connected() ) NanReturnNull();
 
-	v8::String::Utf8Value pool_name(args[0]);
+	v8::String::Utf8Value pool_name(info[0]);
 
 	int err = 0;
-	switch (args.Length()) {
+	switch (info.Length()) {
 		case 1: {
 			err = rados_pool_create(obj->cluster, *pool_name);
 			break;
 		}
 		case 2: {
-			if (args[1]->IsNumber()) {
-				uint64_t auid = args[1]->IntegerValue();
+			if (info[1]->IsNumber()) {
+				uint64_t auid = info[1]->IntegerValue();
 				err = rados_pool_create_with_auid(obj->cluster, *pool_name, auid);
 			} else {
 				return Nan::ThrowError("Bad argument.");
@@ -292,12 +291,12 @@ Nan::HandleScope scope;
 			break;
 		}
 		case 3: {
-			if (args[1]->IsNumber() && args[2]->IsNumber()) {
-				uint64_t auid = args[1]->IntegerValue();
-				uint8_t crush_rule = args[2]->Uint32Value();
+			if (info[1]->IsNumber() && info[2]->IsNumber()) {
+				uint64_t auid = info[1]->IntegerValue();
+				uint8_t crush_rule = info[2]->Uint32Value();
 				err = rados_pool_create_with_all(obj->cluster, *pool_name, auid, crush_rule);
-			} else if (args[2]->IsNumber()) {
-				uint8_t crush_rule = args[2]->Uint32Value();
+			} else if (info[2]->IsNumber()) {
+				uint8_t crush_rule = info[2]->Uint32Value();
 				err = rados_pool_create_with_crush_rule(obj->cluster, *pool_name, crush_rule);
 			} else {
 				return Nan::ThrowError("Bad argument.");
@@ -310,16 +309,16 @@ Nan::HandleScope scope;
 }
 
 NAN_METHOD(Rados::pool_delete) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() < 1 ||
+			!info[0]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
+	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
 	if ( !obj->require_connected() ) NanReturnNull();
-	v8::String::Utf8Value pool_name(args[0]);
+	v8::String::Utf8Value pool_name(info[0]);
 
 	int err = rados_pool_delete(obj->cluster, *pool_name);
 
@@ -329,7 +328,7 @@ Nan::HandleScope scope;
 NAN_METHOD(Rados::pool_list) {
 Nan::HandleScope scope;
 
-	Rados* obj = ObjectWrap::Unwrap < Rados > (args.This());
+	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
 	if ( !obj->require_connected() ) NanReturnNull();
 
 	char temp_buffer[256];
@@ -358,7 +357,7 @@ Nan::HandleScope scope;
 
 NAN_METHOD(Ioctx::pool_stat) {
 Nan::HandleScope scope;
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
 	rados_pool_stat_t pool_stat_t;
 	int err = rados_ioctx_pool_stat(obj->ioctx, &pool_stat_t);
@@ -376,14 +375,14 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::pool_set_auid) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			args[1]->IsNumber()) {
+	if (info.Length() < 1 ||
+			info[1]->IsNumber()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	uint64_t auid = args[0]->IntegerValue();
+	uint64_t auid = info[0]->IntegerValue();
 
 	int err = rados_ioctx_pool_set_auid(obj->ioctx, auid);
 
@@ -393,7 +392,7 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::pool_get_auid) {
 Nan::HandleScope scope;
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
 
 	uint64_t auid;
@@ -408,7 +407,7 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::destroy) {
 Nan::HandleScope scope;
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
 
 	rados_ioctx_destroy(obj->ioctx);
@@ -420,14 +419,14 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::snap_create) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() < 1 ||
+			!info[0]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value snapname(args[0]);
+	v8::String::Utf8Value snapname(info[0]);
 
 	int err = rados_ioctx_snap_create(obj->ioctx, *snapname);
 
@@ -437,14 +436,14 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::snap_remove) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() < 1 ||
+			!info[0]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value snapname(args[0]);
+	v8::String::Utf8Value snapname(info[0]);
 
 	int err = rados_ioctx_snap_remove(obj->ioctx, *snapname);
 
@@ -454,16 +453,16 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::snap_rollback) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->Isv8::String() ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() < 2 ||
+			!info[0]->Isv8::String() ||
+			!info[0]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	v8::String::Utf8Value snapname(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	v8::String::Utf8Value snapname(info[1]);
 
 	int err = rados_ioctx_snap_rollback(obj->ioctx, *oid, *snapname);
 
@@ -473,16 +472,16 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::read) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() < 1 ||
+			!info[0]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	size_t size = args[1]->IsNumber() ? args[1]->IntegerValue() : 8192;
-	uint64_t offset = args[2]->IsNumber() ? args[2]->IntegerValue() : 0;
+	v8::String::Utf8Value oid(info[0]);
+	size_t size = info[1]->IsNumber() ? info[1]->IntegerValue() : 8192;
+	uint64_t offset = info[2]->IsNumber() ? info[2]->IntegerValue() : 0;
 
 	char *buffer = new char[size];
 
@@ -500,20 +499,20 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::write) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->Isv8::String() ||
-			!Buffer::HasInstance(args[1])) {
+	if (info.Length() < 2 ||
+			!info[0]->Isv8::String() ||
+			!Buffer::HasInstance(info[1])) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	char* buffer = Buffer::Data(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	char* buffer = Buffer::Data(info[1]);
 	size_t size =
-			args[2]->IsNumber() ?
-					args[2]->Uint32Value() : Buffer::Length(args[1]);
-	uint64_t offset = args[3]->IsNumber() ? args[3]->IntegerValue() : 0;
+			info[2]->IsNumber() ?
+					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	uint64_t offset = info[3]->IsNumber() ? info[3]->IntegerValue() : 0;
 
 	int err = rados_write(obj->ioctx, *oid, buffer, size, offset);
 
@@ -523,19 +522,19 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::write_full) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->Isv8::String() ||
-			!Buffer::HasInstance(args[1])) {
+	if (info.Length() < 2 ||
+			!info[0]->Isv8::String() ||
+			!Buffer::HasInstance(info[1])) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	char* buffer = Buffer::Data(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	char* buffer = Buffer::Data(info[1]);
 	size_t size =
-			args[2]->IsNumber() ?
-					args[2]->Uint32Value() : Buffer::Length(args[1]);
+			info[2]->IsNumber() ?
+					info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	int err = rados_write_full(obj->ioctx, *oid, buffer, size);
 
@@ -545,22 +544,22 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::clone_range) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 5 ||
-			!args[0]->Isv8::String() ||
-			!args[1]->IsNumber() ||
-			!args[2]->Isv8::String() ||
-			!args[3]->IsNumber() ||
-			!args[4]->IsNumber()) {
+	if (info.Length() < 5 ||
+			!info[0]->Isv8::String() ||
+			!info[1]->IsNumber() ||
+			!info[2]->Isv8::String() ||
+			!info[3]->IsNumber() ||
+			!info[4]->IsNumber()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value dst(args[0]);
-	uint64_t dst_off = args[1]->Uint32Value();
-	v8::String::Utf8Value src(args[2]);
-	uint64_t src_off = args[3]->Uint32Value();
-	size_t size = args[4]->Uint32Value();
+	v8::String::Utf8Value dst(info[0]);
+	uint64_t dst_off = info[1]->Uint32Value();
+	v8::String::Utf8Value src(info[2]);
+	uint64_t src_off = info[3]->Uint32Value();
+	size_t size = info[4]->Uint32Value();
 
 	int err = rados_clone_range(obj->ioctx, *dst, dst_off, *src, src_off, size);
 
@@ -570,19 +569,19 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::append) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->Isv8::String() ||
-			!Buffer::HasInstance(args[1])) {
+	if (info.Length() < 2 ||
+			!info[0]->Isv8::String() ||
+			!Buffer::HasInstance(info[1])) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	char* buffer = Buffer::Data(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	char* buffer = Buffer::Data(info[1]);
 	size_t size =
-			args[2]->IsNumber() ?
-					args[2]->Uint32Value() : Buffer::Length(args[1]);
+			info[2]->IsNumber() ?
+					info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	int err = rados_append(obj->ioctx, *oid, buffer, size);
 
@@ -592,14 +591,14 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::remove) {
 Nan::HandleScope scope;
 
-	if (args.Length() != 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() != 1 ||
+			!info[0]->Isv8::String()) {
 		NanReturnNull();
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
+	v8::String::Utf8Value oid(info[0]);
 
 	int err = rados_remove(obj->ioctx, *oid);
 
@@ -609,16 +608,16 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::trunc) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->Isv8::String() ||
-			!args[1]->IsNumber()) {
+	if (info.Length() < 2 ||
+			!info[0]->Isv8::String() ||
+			!info[1]->IsNumber()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	size_t size = args[1]->Uint32Value();
+	v8::String::Utf8Value oid(info[0]);
+	size_t size = info[1]->Uint32Value();
 
 	int err = rados_trunc(obj->ioctx, *oid, size);
 
@@ -628,19 +627,19 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::getxattr) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->Isv8::String() ||
-			!args[1]->Isv8::String()) {
+	if (info.Length() < 2 ||
+			!info[0]->Isv8::String() ||
+			!info[1]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	v8::String::Utf8Value name(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	v8::String::Utf8Value name(info[1]);
 	size_t size;
-	if (args[2]->IsNumber()) {
-		size = args[2]->Uint32Value();
+	if (info[2]->IsNumber()) {
+		size = info[2]->Uint32Value();
 	} else {
 		char temp_buffer[DEFAULT_BUFFER_SIZE];
 		int ret = rados_getxattr(obj->ioctx, *oid, *name, temp_buffer, 0);
@@ -663,20 +662,20 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::setxattr) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 3 ||
-			!args[0]->Isv8::String() ||
-			!args[1]->Isv8::String() ||
-			!args[2]->Isv8::String()) {
+	if (info.Length() < 3 ||
+			!info[0]->Isv8::String() ||
+			!info[1]->Isv8::String() ||
+			!info[2]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	v8::String::Utf8Value name(args[1]);
-	v8::String::Utf8Value buffer(args[2]);
+	v8::String::Utf8Value oid(info[0]);
+	v8::String::Utf8Value name(info[1]);
+	v8::String::Utf8Value buffer(info[2]);
 	size_t size =
-			args[3]->IsNumber() ? args[3]->Uint32Value() : strlen(*buffer);
+			info[3]->IsNumber() ? info[3]->Uint32Value() : strlen(*buffer);
 
 	int err = rados_setxattr(obj->ioctx, *oid, *name, *buffer, size);
 
@@ -686,16 +685,16 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::rmxattr) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->Isv8::String() ||
-			!args[1]->Isv8::String()) {
+	if (info.Length() < 2 ||
+			!info[0]->Isv8::String() ||
+			!info[1]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	v8::String::Utf8Value name(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	v8::String::Utf8Value name(info[1]);
 
 	int err = rados_rmxattr(obj->ioctx, *oid, *name);
 
@@ -705,14 +704,14 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::getxattrs) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() < 1 ||
+			!info[0]->Isv8::String()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
+	v8::String::Utf8Value oid(info[0]);
 	rados_xattrs_iter_t iter;
 
 	Local<Object> xattrs = Nan::New<Object>();
@@ -743,14 +742,14 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::stat) {
 Nan::HandleScope scope;
 
-	if (args.Length() != 1 ||
-			!args[0]->Isv8::String()) {
+	if (info.Length() != 1 ||
+			!info[0]->Isv8::String()) {
 		NanReturnNull();
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
+	v8::String::Utf8Value oid(info[0]);
 	uint64_t psize;
 	time_t pmtime;
 
@@ -811,23 +810,23 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::aio_read) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 4 ||
-			!args[0]->Isv8::String() ||
-			!args[3]->IsFunction()) {
+	if (info.Length() < 4 ||
+			!info[0]->Isv8::String() ||
+			!info[3]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	size_t size = args[1]->IsNumber() ? args[1]->IntegerValue() : 8192;
-	uint64_t offset = args[2]->IsNumber() ? args[2]->IntegerValue() : 0;
+	v8::String::Utf8Value oid(info[0]);
+	size_t size = info[1]->IsNumber() ? info[1]->IntegerValue() : 8192;
+	uint64_t offset = info[2]->IsNumber() ? info[2]->IntegerValue() : 0;
 
 	AsyncData *asyncdata = new AsyncData;
 	char *buffer = new char[size];
 	rados_completion_t *comp = new rados_completion_t;
 
-	asyncdata->callback.SetFunction(args[3].As<Function>());
+	asyncdata->callback.SetFunction(info[3].As<Function>());
 	asyncdata->buffer = buffer;
 	asyncdata->cb_buffer = true;
 	asyncdata->size = size;
@@ -856,26 +855,26 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::aio_write) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 5 ||
-			!args[0]->Isv8::String() ||
-			!Buffer::HasInstance(args[1]) ||
-			!args[4]->IsFunction()) {
+	if (info.Length() < 5 ||
+			!info[0]->Isv8::String() ||
+			!Buffer::HasInstance(info[1]) ||
+			!info[4]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	char* buffer = Buffer::Data(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	char* buffer = Buffer::Data(info[1]);
 	size_t size =
-			args[2]->IsNumber() ?
-					args[2]->Uint32Value() : Buffer::Length(args[1]);
-	uint64_t offset = args[3]->IsNumber() ? args[3]->IntegerValue() : 0;
+			info[2]->IsNumber() ?
+					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	uint64_t offset = info[3]->IsNumber() ? info[3]->IntegerValue() : 0;
 
 	AsyncData *asyncdata = new AsyncData;
 	rados_completion_t *comp = new rados_completion_t;
 
-	asyncdata->callback.SetFunction(args[4].As<Function>());
+	asyncdata->callback.SetFunction(info[4].As<Function>());
 	asyncdata->buffer = buffer;
 	asyncdata->cb_buffer = false;
 	asyncdata->size = size;
@@ -904,25 +903,25 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::aio_append) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 4 ||
-			!args[0]->Isv8::String() ||
-			!Buffer::HasInstance(args[1]) ||
-			!args[3]->IsFunction()) {
+	if (info.Length() < 4 ||
+			!info[0]->Isv8::String() ||
+			!Buffer::HasInstance(info[1]) ||
+			!info[3]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	char* buffer = Buffer::Data(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	char* buffer = Buffer::Data(info[1]);
 	size_t size =
-			args[2]->IsNumber() ?
-					args[2]->Uint32Value() : Buffer::Length(args[1]);
+			info[2]->IsNumber() ?
+					info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	AsyncData *asyncdata = new AsyncData;
 	rados_completion_t *comp = new rados_completion_t;
 
-	asyncdata->callback.SetFunction(args[3].As<Function>());
+	asyncdata->callback.SetFunction(info[3].As<Function>());
 	asyncdata->buffer = buffer;
 	asyncdata->cb_buffer = false;
 	asyncdata->size = size;
@@ -951,25 +950,25 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::aio_write_full) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 4 ||
-			!args[0]->Isv8::String() ||
-			!Buffer::HasInstance(args[1]) ||
-			!args[3]->IsFunction()) {
+	if (info.Length() < 4 ||
+			!info[0]->Isv8::String() ||
+			!Buffer::HasInstance(info[1]) ||
+			!info[3]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
-	v8::String::Utf8Value oid(args[0]);
-	char* buffer = Buffer::Data(args[1]);
+	v8::String::Utf8Value oid(info[0]);
+	char* buffer = Buffer::Data(info[1]);
 	size_t size =
-			args[2]->IsNumber() ?
-					args[2]->Uint32Value() : Buffer::Length(args[1]);
+			info[2]->IsNumber() ?
+					info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	AsyncData *asyncdata = new AsyncData;
 	rados_completion_t *comp = new rados_completion_t;
 
-	asyncdata->callback.SetFunction(args[3].As<Function>());
+	asyncdata->callback.SetFunction(info[3].As<Function>());
 	asyncdata->buffer = buffer;
 	asyncdata->cb_buffer = false;
 	asyncdata->size = size;
@@ -998,7 +997,7 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::aio_flush) {
 Nan::HandleScope scope;
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
 
 	int err = rados_aio_flush(obj->ioctx);
@@ -1009,18 +1008,18 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::aio_flush_async) {
 Nan::HandleScope scope;
 
-	if (args.Length() < 1 ||
-			!args[0]->IsFunction()) {
+	if (info.Length() < 1 ||
+			!info[0]->IsFunction()) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
 
 	AsyncData *asyncdata = new AsyncData;
 	rados_completion_t *comp = new rados_completion_t;
 
-	asyncdata->callback.SetFunction(args[0].As<Function>());
+	asyncdata->callback.SetFunction(info[0].As<Function>());
 	asyncdata->cb_buffer = false;
 	asyncdata->comp = comp;
 	asyncdata->err = 0;
@@ -1048,7 +1047,7 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::objects_list) {
 Nan::HandleScope scope;
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
 
 	rados_list_ctx_t h_ctx;
@@ -1082,17 +1081,17 @@ Nan::HandleScope scope;
 NAN_METHOD(Ioctx::objects_range) {
 	Nan::HandleScope scope;
 
-	if (args.Length() < 2 ||
-			!args[0]->IsNumber() ||
-			!args[1]->IsNumber()
+	if (info.Length() < 2 ||
+			!info[0]->IsNumber() ||
+			!info[1]->IsNumber()
 	) {
 		return Nan::ThrowError("Bad argument.");
 	}
 
-	uint32_t offset = args[0]->IsNumber() ? args[0]->IntegerValue() : 0;
-	uint32_t limit = args[1]->IsNumber() ? args[1]->IntegerValue() : 25;
+	uint32_t offset = info[0]->IsNumber() ? info[0]->IntegerValue() : 0;
+	uint32_t limit = info[1]->IsNumber() ? info[1]->IntegerValue() : 25;
 
-	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (args.This());
+	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
 	if ( !obj->require_created() ) NanReturnNull();
 
 	rados_list_ctx_t h_ctx;
