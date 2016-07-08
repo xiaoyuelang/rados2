@@ -334,8 +334,8 @@ NAN_METHOD(Ioctx::pool_stat) {
 	}
 
 	Local<Object> stat = Nan::New<Object>();
-	stat->Set( Nan::New<v8::String>("num_bytes"), Nan::New<Number>(pool_stat_t.num_bytes));
-	stat->Set( Nan::New<v8::String>("num_objects"), Nan::New<Number>(pool_stat_t.num_objects) );
+	stat->Set(Nan::New("num_bytes").ToLocalChecked(), Nan::New<Number>(pool_stat_t.num_bytes));
+	stat->Set(Nan::New("num_objects").ToLocalChecked(), Nan::New<Number>(pool_stat_t.num_objects) );
 
 	info.GetReturnValue().Set (stat);
 }
