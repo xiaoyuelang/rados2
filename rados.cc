@@ -29,114 +29,81 @@ void Rados::Init(Handle<Object> exports) {
 	Local < FunctionTemplate > tpl = Nan::New < FunctionTemplate > (New);
 	tpl->SetClassName(Nan::New < v8::String > ("Rados").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("connect").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("connect").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (connect)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("shutdown").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("shutdown").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (shutdown)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("get_fsid").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("get_fsid").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (get_fsid)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("pool_create").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("pool_create").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (pool_create)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("pool_delete").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("pool_delete").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (pool_delete)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("pool_list").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("pool_list").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (pool_list)->GetFunction());
 
 	constructor.Reset(tpl->GetFunction());
 
-	exports->Set(Nan::New<v8::String>("Rados").ToLocalChecked(), tpl->GetFunction());
+	exports->Set(Nan::New < v8::String > ("Rados").ToLocalChecked(), tpl->GetFunction());
 }
 
 void Ioctx::Init(Handle<Object> exports) {
 	Local < FunctionTemplate > tpl = Nan::New < FunctionTemplate > (New);
 	tpl->SetClassName(Nan::New < v8::String > ("Ioctx").ToLocalChecked());
 	tpl->InstanceTemplate()->SetInternalFieldCount(1);
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("pool_stat").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("pool_stat").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (pool_stat)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("pool_set_auid").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("pool_set_auid").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (pool_set_auid)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("pool_get_auid").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("pool_get_auid").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (pool_get_auid)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("destroy").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("destroy").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (destroy)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("snap_create").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("snap_create").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (snap_create)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("snap_remove").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("snap_remove").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (snap_remove)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("snap_rollback").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("snap_rollback").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (snap_rollback)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("read").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("read").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (read)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("write").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("write").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (write)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("write_full").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("write_full").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (write_full)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("clone_range").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("clone_range").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (clone_range)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("append").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("append").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (append)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("remove").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("remove").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (remove)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("trunc").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("trunc").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (trunc)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("stat").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("stat").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (stat)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("getxattr").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("getxattr").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (getxattr)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("setxattr").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("setxattr").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (setxattr)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("rmxattr").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("rmxattr").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (rmxattr)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("getxattrs").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("getxattrs").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (getxattrs)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("aio_read").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("aio_read").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (aio_read)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("aio_write").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("aio_write").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (aio_write)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("aio_append").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("aio_append").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (aio_append)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("aio_write_full").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("aio_write_full").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (aio_write_full)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("aio_flush").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("aio_flush").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (aio_flush)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("aio_flush_async").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("aio_flush_async").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (aio_flush_async)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("objects_list").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("objects_list").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (objects_list)->GetFunction());
-	tpl->PrototypeTemplate()->Set(
-			Nan::New < v8::String > ("objects_range").ToLocalChecked(),
+	tpl->PrototypeTemplate()->Set(Nan::New < v8::String > ("objects_range").ToLocalChecked(),
 			Nan::New < FunctionTemplate > (objects_range)->GetFunction());
 	constructor.Reset(tpl->GetFunction());
 	exports->Set(Nan::New < v8::String > ("Ioctx").ToLocalChecked(), tpl->GetFunction());
@@ -209,7 +176,7 @@ NAN_METHOD(Ioctx::New) {
 
 	Ioctx* obj = new Ioctx();
 	Rados* cluster = ObjectWrap::Unwrap < Rados > (info[0]->ToObject());
-	if ( !cluster->require_connected() ) NanReturnNull();
+	if ( !cluster->require_connected() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value pool(info[1]);
 	if ( rados_ioctx_create(cluster->cluster, *pool, &obj->ioctx) != 0 ) {
 		return Nan::ThrowError("create Ioctx failed");
@@ -218,11 +185,11 @@ NAN_METHOD(Ioctx::New) {
 	obj->state = STATE_CREATED;
 
 	obj->Wrap(info.This());
-	NanReturnThis();
+	info.GetReturnValue().Set(info.This());
 }
 
 NAN_METHOD(Rados::connect) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
 
@@ -234,36 +201,37 @@ Nan::HandleScope scope;
 	if (err == 0) {
 		obj->state = STATE_CONNECTED;
 	}
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Rados::shutdown) {
 	Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
-	if ( !obj->require_connected() ) NanReturnNull();
+	if ( !obj->require_connected() ) info.GetReturnValue().SetNull();
 
 	rados_shutdown(obj->cluster);
 	obj->state = STATE_DESTROYED;
 
-	NanReturnNull();
+	info.GetReturnValue().SetNull();
 }
 
 NAN_METHOD(Rados::get_fsid) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
-	if ( !obj->require_connected() ) NanReturnNull();
+	if ( !obj->require_connected() ) info.GetReturnValue().SetNull();
 
 	char fsid[37];
 	if ( rados_cluster_fsid(obj->cluster, fsid, sizeof(fsid)) < 0) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 
-	Nan::ReturnValue (Nan::New<v8::String>(fsid));}
+	info.GetReturnValue().Set(Nan::New<v8::String>(fsid));
+}
 
 NAN_METHOD(Rados::pool_create) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
 			!info[0]->IsString()) {
@@ -271,7 +239,7 @@ Nan::HandleScope scope;
 	}
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
-	if ( !obj->require_connected() ) NanReturnNull();
+	if ( !obj->require_connected() ) info.GetReturnValue().SetNull();
 
 	v8::String::Utf8Value pool_name(info[0]);
 
@@ -305,7 +273,7 @@ Nan::HandleScope scope;
 		}
 	}
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Rados::pool_delete) {
@@ -317,19 +285,19 @@ NAN_METHOD(Rados::pool_delete) {
 	}
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
-	if ( !obj->require_connected() ) NanReturnNull();
+	if ( !obj->require_connected() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value pool_name(info[0]);
 
 	int err = rados_pool_delete(obj->cluster, *pool_name);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Rados::pool_list) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	Rados* obj = ObjectWrap::Unwrap < Rados > (info.This());
-	if ( !obj->require_connected() ) NanReturnNull();
+	if ( !obj->require_connected() ) info.GetReturnValue().SetNull();
 
 	char temp_buffer[256];
 	int buff_size = rados_pool_list(obj->cluster, temp_buffer, 0);
@@ -337,7 +305,7 @@ Nan::HandleScope scope;
 	char buffer[buff_size];
 	int r = rados_pool_list(obj->cluster, buffer, sizeof(buffer));
 	if (r != buff_size) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 
 	Local<Array> pools = Nan::New<Array>();
@@ -352,28 +320,28 @@ Nan::HandleScope scope;
 		array_id++;
 	}
 
-	Nan::ReturnValue (pools);
+	info.GetReturnValue().Set (pools);
 }
 
 NAN_METHOD(Ioctx::pool_stat) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	rados_pool_stat_t pool_stat_t;
 	int err = rados_ioctx_pool_stat(obj->ioctx, &pool_stat_t);
 	if (err < 0) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 
 	Local<Object> stat = Nan::New<Object>();
 	stat->Set( Nan::New<v8::String>("num_bytes"), Nan::New<Number>(pool_stat_t.num_bytes));
 	stat->Set( Nan::New<v8::String>("num_objects"), Nan::New<Number>(pool_stat_t.num_objects) );
 
-	Nan::ReturnValue (stat);
+	info.GetReturnValue().Set (stat);
 }
 
 NAN_METHOD(Ioctx::pool_set_auid) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
 			info[1]->IsNumber()) {
@@ -381,43 +349,43 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	uint64_t auid = info[0]->IntegerValue();
 
 	int err = rados_ioctx_pool_set_auid(obj->ioctx, auid);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::pool_get_auid) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 
 	uint64_t auid;
 	int err = rados_ioctx_pool_get_auid(obj->ioctx, &auid);
 
 	if (err < 0) {
-		Nan::ReturnValue(Nan::New<Number>(err));
+		info.GetReturnValue().Set(Nan::New<Number>(err));
 	}
 
-	Nan::ReturnValue (Nan::New<Number>(auid));}
+	info.GetReturnValue().Set (Nan::New<Number>(auid));}
 
 NAN_METHOD(Ioctx::destroy) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 
 	rados_ioctx_destroy(obj->ioctx);
 	obj->state = STATE_DESTROYED;
 
-	NanReturnNull();
+	info.GetReturnValue().SetNull();
 }
 
 NAN_METHOD(Ioctx::snap_create) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
 			!info[0]->IsString()) {
@@ -425,16 +393,16 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value snapname(info[0]);
 
 	int err = rados_ioctx_snap_create(obj->ioctx, *snapname);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::snap_remove) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
 			!info[0]->IsString()) {
@@ -442,16 +410,16 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value snapname(info[0]);
 
 	int err = rados_ioctx_snap_remove(obj->ioctx, *snapname);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::snap_rollback) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
 			!info[0]->IsString() ||
@@ -460,17 +428,17 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	v8::String::Utf8Value snapname(info[1]);
 
 	int err = rados_ioctx_snap_rollback(obj->ioctx, *oid, *snapname);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::read) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
 			!info[0]->IsString()) {
@@ -478,7 +446,7 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	size_t size = info[1]->IsNumber() ? info[1]->IntegerValue() : 8192;
 	uint64_t offset = info[2]->IsNumber() ? info[2]->IntegerValue() : 0;
@@ -489,15 +457,15 @@ Nan::HandleScope scope;
 
 	if (err < 0) {
 		delete buffer;
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	} else {
-		Nan::ReturnValue(NanBufferUse(buffer, err));
+		info.GetReturnValue().Set(NanBufferUse(buffer, err));
 	}
 
 }
 
 NAN_METHOD(Ioctx::write) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
 			!info[0]->IsString() ||
@@ -506,21 +474,19 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	char* buffer = Buffer::Data(info[1]);
-	size_t size =
-			info[2]->IsNumber() ?
-					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	size_t size = info[2]->IsNumber() ? info[2]->Uint32Value() : Buffer::Length(info[1]);
 	uint64_t offset = info[3]->IsNumber() ? info[3]->IntegerValue() : 0;
 
 	int err = rados_write(obj->ioctx, *oid, buffer, size, offset);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::write_full) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
 			!info[0]->IsString() ||
@@ -529,20 +495,18 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	char* buffer = Buffer::Data(info[1]);
-	size_t size =
-			info[2]->IsNumber() ?
-					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	size_t size = info[2]->IsNumber() ? info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	int err = rados_write_full(obj->ioctx, *oid, buffer, size);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::clone_range) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 5 ||
 			!info[0]->IsString() ||
@@ -554,7 +518,7 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value dst(info[0]);
 	uint64_t dst_off = info[1]->Uint32Value();
 	v8::String::Utf8Value src(info[2]);
@@ -563,11 +527,11 @@ Nan::HandleScope scope;
 
 	int err = rados_clone_range(obj->ioctx, *dst, dst_off, *src, src_off, size);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::append) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
 			!info[0]->IsString() ||
@@ -576,37 +540,35 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	char* buffer = Buffer::Data(info[1]);
-	size_t size =
-			info[2]->IsNumber() ?
-					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	size_t size = info[2]->IsNumber() ? info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	int err = rados_append(obj->ioctx, *oid, buffer, size);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::remove) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() != 1 ||
 			!info[0]->IsString()) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 
 	int err = rados_remove(obj->ioctx, *oid);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::trunc) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
 			!info[0]->IsString() ||
@@ -615,17 +577,17 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	size_t size = info[1]->Uint32Value();
 
 	int err = rados_trunc(obj->ioctx, *oid, size);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::getxattr) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
 			!info[0]->IsString() ||
@@ -634,7 +596,7 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	v8::String::Utf8Value name(info[1]);
 	size_t size;
@@ -644,7 +606,7 @@ Nan::HandleScope scope;
 		char temp_buffer[DEFAULT_BUFFER_SIZE];
 		int ret = rados_getxattr(obj->ioctx, *oid, *name, temp_buffer, 0);
 		if (ret < 0) {
-			NanReturnNull();
+			info.GetReturnValue().SetNull();
 		} else {
 			size = ret;
 		}
@@ -654,13 +616,13 @@ Nan::HandleScope scope;
 	int err = rados_getxattr(obj->ioctx, *oid, *name, buffer, size);
 
 	if (err < 0) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 
-	Nan::ReturnValue (Nan::New<v8::String>(buffer, size));}
+	info.GetReturnValue().Set (Nan::New<v8::String>(buffer, size));}
 
 NAN_METHOD(Ioctx::setxattr) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 3 ||
 			!info[0]->IsString() ||
@@ -670,20 +632,19 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	v8::String::Utf8Value name(info[1]);
 	v8::String::Utf8Value buffer(info[2]);
-	size_t size =
-			info[3]->IsNumber() ? info[3]->Uint32Value() : strlen(*buffer);
+	size_t size = info[3]->IsNumber() ? info[3]->Uint32Value() : strlen(*buffer);
 
 	int err = rados_setxattr(obj->ioctx, *oid, *name, *buffer, size);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::rmxattr) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 2 ||
 			!info[0]->IsString() ||
@@ -692,17 +653,17 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	v8::String::Utf8Value name(info[1]);
 
 	int err = rados_rmxattr(obj->ioctx, *oid, *name);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::getxattrs) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
 			!info[0]->IsString()) {
@@ -710,14 +671,14 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	rados_xattrs_iter_t iter;
 
 	Local<Object> xattrs = Nan::New<Object>();
 	int err = rados_getxattrs(obj->ioctx, *oid, &iter);
 	if (err < 0) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 	while (1) {
 		const char *name;
@@ -726,7 +687,7 @@ Nan::HandleScope scope;
 
 		err = rados_getxattrs_next(iter, &name, &val, &len);
 		if (err < 0) {
-			NanReturnNull();
+			info.GetReturnValue().SetNull();
 		}
 		if (name == NULL) {
 			break;
@@ -736,26 +697,26 @@ Nan::HandleScope scope;
 	}
 	rados_getxattrs_end (iter);
 
-	Nan::ReturnValue (xattrs);
+	info.GetReturnValue().Set (xattrs);
 }
 
 NAN_METHOD(Ioctx::stat) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() != 1 ||
 			!info[0]->IsString()) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	uint64_t psize;
 	time_t pmtime;
 
 	int err = rados_stat(obj->ioctx, *oid, &psize, &pmtime);
 	if (err < 0) {
-		NanReturnNull();
+		info.GetReturnValue().SetNull();
 	}
 
 	Local<Object> stat = Nan::New<Object>();
@@ -763,7 +724,7 @@ Nan::HandleScope scope;
 	stat->Set( Nan::New<v8::String>("psize"), Nan::New<Number>(psize) );
 	stat->Set( Nan::New<v8::String>("pmtime"), Nan::New<Number>(pmtime) );
 
-	Nan::ReturnValue (stat);
+	info.GetReturnValue().Set (stat);
 }
 
 void Ioctx::wait_complete(uv_work_t *req) {
@@ -783,7 +744,7 @@ void Ioctx::wait_complete(uv_work_t *req) {
 }
 
 void Ioctx::callback_complete(uv_work_t *req) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	AsyncData *asyncdata = (AsyncData *) req->data;
 
@@ -808,7 +769,7 @@ Nan::HandleScope scope;
 }
 
 NAN_METHOD(Ioctx::aio_read) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 4 ||
 			!info[0]->IsString() ||
@@ -817,7 +778,7 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	size_t size = info[1]->IsNumber() ? info[1]->IntegerValue() : 8192;
 	uint64_t offset = info[2]->IsNumber() ? info[2]->IntegerValue() : 0;
@@ -849,11 +810,11 @@ Nan::HandleScope scope;
 			(uv_after_work_cb)callback_complete
 	);
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(Ioctx::aio_write) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 5 ||
 			!info[0]->IsString() ||
@@ -863,12 +824,10 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	char* buffer = Buffer::Data(info[1]);
-	size_t size =
-			info[2]->IsNumber() ?
-					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	size_t size = info[2]->IsNumber() ? info[2]->Uint32Value() : Buffer::Length(info[1]);
 	uint64_t offset = info[3]->IsNumber() ? info[3]->IntegerValue() : 0;
 
 	AsyncData *asyncdata = new AsyncData;
@@ -897,11 +856,11 @@ Nan::HandleScope scope;
 			(uv_after_work_cb)callback_complete
 	);
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(Ioctx::aio_append) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 4 ||
 			!info[0]->IsString() ||
@@ -911,12 +870,10 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	char* buffer = Buffer::Data(info[1]);
-	size_t size =
-			info[2]->IsNumber() ?
-					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	size_t size = info[2]->IsNumber() ? info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	AsyncData *asyncdata = new AsyncData;
 	rados_completion_t *comp = new rados_completion_t;
@@ -944,11 +901,11 @@ Nan::HandleScope scope;
 			(uv_after_work_cb)callback_complete
 	);
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(Ioctx::aio_write_full) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 4 ||
 			!info[0]->IsString() ||
@@ -958,12 +915,10 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 	v8::String::Utf8Value oid(info[0]);
 	char* buffer = Buffer::Data(info[1]);
-	size_t size =
-			info[2]->IsNumber() ?
-					info[2]->Uint32Value() : Buffer::Length(info[1]);
+	size_t size = info[2]->IsNumber() ? info[2]->Uint32Value() : Buffer::Length(info[1]);
 
 	AsyncData *asyncdata = new AsyncData;
 	rados_completion_t *comp = new rados_completion_t;
@@ -991,22 +946,22 @@ Nan::HandleScope scope;
 			(uv_after_work_cb)callback_complete
 	);
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(Ioctx::aio_flush) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 
 	int err = rados_aio_flush(obj->ioctx);
 
-	Nan::ReturnValue(Nan::New<Number>(-err));
+	info.GetReturnValue().Set(Nan::New<Number>(-err));
 }
 
 NAN_METHOD(Ioctx::aio_flush_async) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	if (info.Length() < 1 ||
 			!info[0]->IsFunction()) {
@@ -1014,7 +969,7 @@ Nan::HandleScope scope;
 	}
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 
 	AsyncData *asyncdata = new AsyncData;
 	rados_completion_t *comp = new rados_completion_t;
@@ -1040,15 +995,15 @@ Nan::HandleScope scope;
 			(uv_after_work_cb)callback_complete
 	);
 
-	NanReturnUndefined();
+	info.GetReturnValue().SetUndefined();
 }
 
 #define ENOENT 2
 NAN_METHOD(Ioctx::objects_list) {
-Nan::HandleScope scope;
+	Nan::HandleScope scope;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 
 	rados_list_ctx_t h_ctx;
 	//Start listing objects in a pool.
@@ -1075,7 +1030,7 @@ Nan::HandleScope scope;
 		return Nan::ThrowError("list_next failed.");
 	}
 
-	Nan::ReturnValue (ret_list);
+	info.GetReturnValue().Set (ret_list);
 }
 
 NAN_METHOD(Ioctx::objects_range) {
@@ -1092,7 +1047,7 @@ NAN_METHOD(Ioctx::objects_range) {
 	uint32_t limit = info[1]->IsNumber() ? info[1]->IntegerValue() : 25;
 
 	Ioctx* obj = ObjectWrap::Unwrap < Ioctx > (info.This());
-	if ( !obj->require_created() ) NanReturnNull();
+	if ( !obj->require_created() ) info.GetReturnValue().SetNull();
 
 	rados_list_ctx_t h_ctx;
 
@@ -1122,5 +1077,5 @@ NAN_METHOD(Ioctx::objects_range) {
 		return Nan::ThrowError("list_next failed.");
 	}
 
-	Nan::ReturnValue (ret_list);
+	info.GetReturnValue().Set (ret_list);
 }
