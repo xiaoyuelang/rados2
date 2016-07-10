@@ -7,3 +7,5 @@ cd node-rados
 npm install nan
 
 node-gyp rebuild
+
+This module is compatible with Node.js v4.x, v5.x, v6.x
